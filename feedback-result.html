@@ -1,0 +1,700 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>피드백 결과 - YouTube Analytics</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <style>
+        body {
+            background-color: #ffffff;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #000000;
+        }
+        
+        .hero-section {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 100px 0;
+            border-bottom: 3px solid #dc3545;
+        }
+        
+        .navbar {
+            background-color: #ffffff !important;
+            border-bottom: 2px solid #dc3545;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #dc3545 !important;
+        }
+        
+        .nav-link {
+            color: #000000 !important;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: #dc3545 !important;
+        }
+        
+        .feedback-card {
+            background-color: #ffffff;
+            border: 2px solid #dc3545;
+            border-radius: 0;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.2);
+        }
+        
+        .prediction-card {
+            background-color: #f8f9fa;
+            border: 2px solid #dc3545;
+            border-radius: 0;
+            padding: 30px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .prediction-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #dc3545;
+            margin-bottom: 10px;
+        }
+        
+        .prediction-label {
+            color: #6c757d;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+        
+        .btn-custom {
+            background-color: #dc3545;
+            border: 2px solid #dc3545;
+            color: #ffffff;
+            padding: 15px 40px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .btn-custom:hover {
+            background-color: #000000;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+        
+        .back-btn {
+            background-color: #dc3545;
+            border: 2px solid #dc3545;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background-color: #000000;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 0 20px;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #dc3545;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .step-number.completed {
+            background-color: #dc3545;
+        }
+        
+        .step-number.active {
+            background-color: #000000;
+        }
+        
+        .step-text {
+            color: #000000;
+            font-weight: 500;
+        }
+        
+        .step-line {
+            width: 50px;
+            height: 2px;
+            background-color: #dc3545;
+            margin: 0 10px;
+        }
+        
+        .footer {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 50px 0 20px;
+            border-top: 3px solid #dc3545;
+        }
+        
+        .chart-container {
+            background-color: #ffffff;
+            border: 2px solid #dc3545;
+            border-radius: 0;
+            padding: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .recommendation-item {
+            background-color: #f8f9fa;
+            border-left: 4px solid #dc3545;
+            padding: 20px;
+            margin-bottom: 15px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+        
+        .recommendation-item:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+            transform: translateX(5px);
+        }
+        
+        .recommendation-item:hover .recommendation-title,
+        .recommendation-item:hover .recommendation-text {
+            color: #ffffff;
+        }
+        
+        .recommendation-title {
+            font-weight: bold;
+            color: #000000;
+            margin-bottom: 8px;
+        }
+        
+        .recommendation-text {
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+        
+        .alert-success {
+            background-color: #dc3545;
+            border-color: #dc3545;
+            color: #ffffff;
+            border-radius: 0;
+        }
+        
+        .alert-warning {
+            background-color: #000000;
+            border-color: #dc3545;
+            color: #ffffff;
+            border-radius: 0;
+        }
+        
+        .text-muted {
+            color: #6c757d !important;
+        }
+        
+        .display-4 {
+            color: #000000;
+        }
+        
+        .lead {
+            color: #6c757d;
+        }
+        
+        .video-info {
+            background-color: #f8f9fa;
+            border: 2px solid #dc3545;
+            border-radius: 0;
+            padding: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 0;
+            border-bottom: 1px solid #dee2e6;
+        }
+        
+        .info-item:last-child {
+            border-bottom: none;
+        }
+        
+        .info-label {
+            font-weight: 600;
+            color: #000000;
+        }
+        
+        .info-value {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-graph-up me-2"></i>
+                YouTube Analytics
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="trend.html">월별 트렌드</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="feedback.html">피드백</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#analytics">분석</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="margin-top: 76px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <a href="feedback.html" class="back-btn mb-4 d-inline-block">
+                        <i class="bi bi-arrow-left me-2"></i>뒤로 가기
+                    </a>
+                    <h1 class="display-4 fw-bold mb-4">피드백 결과</h1>
+                    <p class="lead mb-4">AI가 분석한 영상 조회수 예측과 개선 방향을 확인해보세요.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="bi bi-graph-up-arrow feature-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container" style="padding-bottom: 50px;">
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step">
+                <div class="step-number completed">1</div>
+                <div class="step-text">영상 정보 입력</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step">
+                <div class="step-number active">2</div>
+                <div class="step-text">피드백 결과</div>
+            </div>
+        </div>
+
+        <!-- Video Information Summary -->
+        <div class="video-info">
+            <h4 class="mb-3"><i class="bi bi-info-circle me-2"></i>입력하신 영상 정보</h4>
+            <div id="videoInfoSummary">
+                <!-- Video info will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Prediction Results -->
+        <div class="row g-4 mb-4">
+            <div class="col-md-4">
+                <div class="prediction-card">
+                    <div class="prediction-number" id="predictedViews">0</div>
+                    <div class="prediction-label">예상 조회수</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="prediction-card">
+                    <div class="prediction-number" id="confidence">0%</div>
+                    <div class="prediction-label">예측 신뢰도</div>
+                </div>
+            </div>
+            <div class="col-md-4">
+                <div class="prediction-card">
+                    <div class="prediction-number" id="categoryRank">-</div>
+                    <div class="prediction-label">카테고리 순위</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Recommendations -->
+        <div class="feedback-card">
+            <h3 class="mb-4"><i class="bi bi-lightbulb me-2"></i>개선 권장사항</h3>
+            
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="alert alert-success">
+                        <h5><i class="bi bi-check-circle me-2"></i>잘한 점</h5>
+                        <ul class="mb-0" id="strengths">
+                            <!-- Strengths will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="alert alert-warning">
+                        <h5><i class="bi bi-exclamation-triangle me-2"></i>개선점</h5>
+                        <ul class="mb-0" id="improvements">
+                            <!-- Improvements will be populated by JavaScript -->
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="mt-4">
+                <h5 class="mb-3">상세 권장사항</h5>
+                <div id="detailedRecommendations">
+                    <!-- Detailed recommendations will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons -->
+        <div class="text-center mt-4">
+            <button class="btn btn-custom btn-lg me-3" onclick="generateNewFeedback()">
+                <i class="bi bi-arrow-clockwise me-2"></i>새로운 피드백
+            </button>
+            <button class="btn btn-custom btn-lg" onclick="downloadReport()">
+                <i class="bi bi-download me-2"></i>보고서 다운로드
+            </button>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 YouTube Analytics. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light text-decoration-none me-3">개인정보처리방침</a>
+                    <a href="#" class="text-light text-decoration-none">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Category mapping
+        const categoryMap = {
+            '1': 'Film & Animation',
+            '2': 'Autos & Vehicles',
+            '10': 'Music',
+            '15': 'Pets & Animals',
+            '17': 'Sports',
+            '18': 'Short Movies',
+            '19': 'Travel & Events',
+            '20': 'Gaming',
+            '21': 'Videoblogging',
+            '22': 'People & Blogs',
+            '23': 'Comedy',
+            '24': 'Entertainment',
+            '25': 'News & Politics',
+            '26': 'Howto & Style'
+        };
+
+        // Load video data and generate feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            const videoData = JSON.parse(localStorage.getItem('videoData'));
+            
+            if (!videoData) {
+                alert('영상 정보가 없습니다. 다시 입력해주세요.');
+                window.location.href = 'feedback.html';
+                return;
+            }
+            
+            // Display video information
+            displayVideoInfo(videoData);
+            
+            // Generate predictions and recommendations
+            generatePredictions(videoData);
+            generateRecommendations(videoData);
+            
+            // Create prediction chart
+            createPredictionChart(videoData);
+        });
+        
+        function displayVideoInfo(data) {
+            const summaryDiv = document.getElementById('videoInfoSummary');
+            summaryDiv.innerHTML = `
+                <div class="info-item">
+                    <span class="info-label">영상 제목</span>
+                    <span class="info-value">${data.title}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">카테고리</span>
+                    <span class="info-value">${categoryMap[data.category]}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">영상 길이</span>
+                    <span class="info-value">${data.length}분</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">업로드 예정 시간</span>
+                    <span class="info-value">${new Date(data.uploadTime).toLocaleString()}</span>
+                </div>
+                <div class="info-item">
+                    <span class="info-label">타겟 시청자</span>
+                    <span class="info-value">${data.targetAudience}</span>
+                </div>
+            `;
+        }
+        
+        function generatePredictions(data) {
+            // Simulate AI prediction based on input data
+            const baseViews = getBaseViewsForCategory(data.category);
+            const lengthMultiplier = getLengthMultiplier(data.length);
+            const timeMultiplier = getTimeMultiplier(data.uploadTime);
+            const audienceMultiplier = getAudienceMultiplier(data.targetAudience);
+            
+            const predictedViews = Math.round(baseViews * lengthMultiplier * timeMultiplier * audienceMultiplier);
+            const confidence = Math.round(75 + Math.random() * 20); // 75-95%
+            const categoryRank = Math.floor(Math.random() * 5) + 1; // 1-5
+            
+            // Animate numbers
+            animateNumber('predictedViews', predictedViews, '');
+            animateNumber('confidence', confidence, '%');
+            document.getElementById('categoryRank').textContent = categoryRank + '위';
+        }
+        
+        function getBaseViewsForCategory(category) {
+            const baseViews = {
+                '1': 500000,   // Film & Animation
+                '2': 300000,   // Autos & Vehicles
+                '10': 800000,  // Music
+                '15': 400000,  // Pets & Animals
+                '17': 600000,  // Sports
+                '18': 200000,  // Short Movies
+                '19': 350000,  // Travel & Events
+                '20': 700000,  // Gaming
+                '21': 250000,  // Videoblogging
+                '22': 450000,  // People & Blogs
+                '23': 650000,  // Comedy
+                '24': 900000,  // Entertainment
+                '25': 550000,  // News & Politics
+                '26': 400000   // Howto & Style
+            };
+            return baseViews[category] || 400000;
+        }
+        
+        function getLengthMultiplier(length) {
+            if (length <= 5) return 0.8;
+            if (length <= 10) return 1.0;
+            if (length <= 20) return 1.2;
+            if (length <= 30) return 1.0;
+            return 0.7; // Too long
+        }
+        
+        function getTimeMultiplier(uploadTime) {
+            const hour = new Date(uploadTime).getHours();
+            if (hour >= 19 && hour <= 22) return 1.3; // Prime time
+            if (hour >= 12 && hour <= 14) return 1.1; // Lunch time
+            if (hour >= 7 && hour <= 9) return 1.0;   // Morning
+            return 0.8; // Other times
+        }
+        
+        function getAudienceMultiplier(audience) {
+            const multipliers = {
+                'all': 1.0,
+                'kids': 0.9,
+                'teens': 1.2,
+                'young_adults': 1.3,
+                'adults': 1.1,
+                'middle_aged': 0.9,
+                'seniors': 0.7
+            };
+            return multipliers[audience] || 1.0;
+        }
+        
+        function animateNumber(elementId, targetValue, suffix) {
+            const element = document.getElementById(elementId);
+            let currentValue = 0;
+            const increment = targetValue / 100;
+            const timer = setInterval(() => {
+                currentValue += increment;
+                if (currentValue >= targetValue) {
+                    element.textContent = targetValue.toLocaleString() + suffix;
+                    clearInterval(timer);
+                } else {
+                    element.textContent = Math.floor(currentValue).toLocaleString() + suffix;
+                }
+            }, 20);
+        }
+        
+        function generateRecommendations(data) {
+            const strengths = [];
+            const improvements = [];
+            const detailedRecommendations = [];
+            
+            // Generate strengths
+            if (data.length >= 5 && data.length <= 15) {
+                strengths.push('적절한 영상 길이로 시청자 이탈률이 낮을 것으로 예상됩니다.');
+            }
+            
+            if (['24', '23', '10'].includes(data.category)) {
+                strengths.push('인기 카테고리로 높은 조회수 가능성이 있습니다.');
+            }
+            
+            if (data.targetAudience === 'young_adults' || data.targetAudience === 'teens') {
+                strengths.push('활발한 시청자층을 타겟으로 하고 있습니다.');
+            }
+            
+            // Generate improvements
+            if (data.length > 20) {
+                improvements.push('영상 길이가 길어 시청자 이탈률이 높을 수 있습니다.');
+            }
+            
+            if (data.length < 3) {
+                improvements.push('영상이 너무 짧아 충분한 내용 전달이 어려울 수 있습니다.');
+            }
+            
+            if (!data.description || data.description.length < 50) {
+                improvements.push('영상 설명을 더 자세히 작성하면 검색 노출이 개선됩니다.');
+            }
+            
+            // Generate detailed recommendations
+            detailedRecommendations.push({
+                title: '제목 최적화',
+                text: '현재 제목에 키워드를 더 추가하여 검색 노출을 높이세요.'
+            });
+            
+            detailedRecommendations.push({
+                title: '썸네일 개선',
+                text: '강렬한 색상과 명확한 텍스트로 클릭률을 높이세요.'
+            });
+            
+            detailedRecommendations.push({
+                title: '업로드 시간 조정',
+                text: '오후 7-10시 사이에 업로드하면 더 많은 조회수를 얻을 수 있습니다.'
+            });
+            
+            // Display recommendations
+            displayRecommendations(strengths, improvements, detailedRecommendations);
+        }
+        
+        function displayRecommendations(strengths, improvements, detailed) {
+            const strengthsList = document.getElementById('strengths');
+            const improvementsList = document.getElementById('improvements');
+            const detailedDiv = document.getElementById('detailedRecommendations');
+            
+            strengthsList.innerHTML = strengths.map(strength => `<li>${strength}</li>`).join('');
+            improvementsList.innerHTML = improvements.map(improvement => `<li>${improvement}</li>`).join('');
+            
+            detailedDiv.innerHTML = detailed.map(rec => `
+                <div class="recommendation-item">
+                    <div class="recommendation-title">${rec.title}</div>
+                    <div class="recommendation-text">${rec.text}</div>
+                </div>
+            `).join('');
+        }
+        
+        function createPredictionChart(data) {
+            const ctx = document.getElementById('predictionChart').getContext('2d');
+            const chart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['현재 예측', '최적화 후 예측', '카테고리 평균'],
+                    datasets: [{
+                        label: '조회수 (천)',
+                        data: [400, 650, 500],
+                        backgroundColor: [
+                            'rgba(220, 53, 69, 0.8)',
+                            'rgba(0, 0, 0, 0.8)',
+                            'rgba(220, 53, 69, 0.5)'
+                        ],
+                        borderColor: [
+                            '#dc3545',
+                            '#000000',
+                            '#dc3545'
+                        ],
+                        borderWidth: 2,
+                        borderRadius: 0
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(0,0,0,0.1)'
+                            },
+                            ticks: {
+                                callback: function(value) {
+                                    return value + 'K';
+                                }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function generateNewFeedback() {
+            window.location.href = 'feedback.html';
+        }
+        
+        function downloadReport() {
+            alert('보고서 다운로드 기능은 준비 중입니다.');
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4월 Sports 트렌드 상세 - YouTube Analytics</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .hero-section {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 120px 0 80px 0;
+            border-bottom: 3px solid #dc3545;
+        }
+        
+        .feature-icon {
+            color: #dc3545;
+            font-size: 4rem;
+        }
+        
+        .footer {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 40px 0;
+            border-top: 3px solid #dc3545;
+        }
+        
+        .navbar {
+            background-color: #ffffff !important;
+            border-bottom: 2px solid #dc3545;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            color: #dc3545 !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            color: #000000 !important;
+            font-weight: 500;
+            margin: 0 10px;
+        }
+        
+        .nav-link:hover {
+            color: #dc3545 !important;
+        }
+        
+        .back-btn {
+            background-color: #dc3545;
+            border: 2px solid #dc3545;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 0;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background-color: #ffffff;
+            color: #dc3545;
+            text-decoration: none;
+        }
+        
+        .video-card {
+            background-color: #ffffff;
+            border: 2px solid #dc3545;
+            border-radius: 0;
+            box-shadow: rgba(220, 53, 69, 0.2) 0px 10px 30px;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .video-card:hover {
+            border-color: #000000;
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 40px;
+            transform: translateY(-5px);
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #dc3545, #000000);
+        }
+        
+        .thumbnail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .video-card:hover .thumbnail-image {
+            transform: scale(1.05);
+        }
+        
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+            font-size: 3rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover .play-overlay {
+            background-color: rgba(220, 53, 69, 0.8);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .video-info {
+            padding: 20px;
+        }
+        
+        .video-title {
+            color: #000000;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .video-channel {
+            color: #dc3545;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .video-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .stat-item i {
+            color: #dc3545;
+        }
+        
+        .video-tags {
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background-color: #f8f9fa;
+            color: #000000;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 2px;
+            display: inline-block;
+            border: 1px solid #dc3545;
+        }
+        
+        .trend-header {
+            background-color: #dc3545;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .trend-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .trend-header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .category-badge {
+            background-color: #dc3545;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .video-rank {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ffd700;
+            color: #000000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .video-rank.rank-2 {
+            background-color: #c0c0c0;
+        }
+        
+        .video-rank.rank-3 {
+            background-color: #cd7f32;
+            color: #ffffff;
+        }
+        
+        .video-rank.rank-4 {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+        
+        .video-rank.rank-5 {
+            background-color: #6c757d;
+            color: #ffffff;
+        }
+        
+        .video-rank.rank-6 {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .view-count {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #dc3545;
+        }
+        
+        .upload-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-graph-up me-2"></i>YouTube Analytics
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="trend.html">월별 트렌드</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">피드백</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <a href="trend.html" class="back-btn mb-4 d-inline-block">
+                        <i class="bi bi-arrow-left me-2"></i>뒤로 가기
+                    </a>
+                    <h1 class="display-4 fw-bold mb-4">4월 Sports 트렌드 상세 분석</h1>
+                    <p class="lead mb-4">Sports 카테고리의 인기 영상들을 확인해보세요.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="bi bi-trophy feature-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container" style="padding-bottom: 50px;">
+        <!-- Trend Header -->
+        <div class="trend-header">
+            <h1>⚽ Sports 카테고리</h1>
+            <p>4월 가장 인기 있었던 Sports 영상들</p>
+        </div>
+
+        <!-- Video Cards -->
+        <div class="row">
+            <!-- Video 1 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-1">1</div>
+                        <img src="https://img.youtube.com/vi/3veRj6plb1c/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">2:27</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Sports</div>
+                        <h3 class="video-title">'기습 번트+3출루' 이정후… 코치도 웃게 만들었다 #SPOTIME</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>스포타임
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">2,483,239</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.4.23</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">이정후</span>
+                            <span class="tag">이정후 활약</span>
+                            <span class="tag">이정후 활약상</span>
+                            <span class="tag">이정후 하이라이트</span>
+                            <span class="tag">이정후 번트</span>
+                            <span class="tag">이정후 안타</span>
+                            <span class="tag">이정후 기습 번트</span>
+                            <span class="tag">이정후 이슈</span>
+                            <span class="tag">이정후 대타</span>
+                            <span class="tag">이정후 2루타</span>
+                            <span class="tag">이정후 타점</span>
+                            <span class="tag">이정후 적시타</span>
+                            <span class="tag">이정후 경기</span>
+                            <span class="tag">샌프란시스코 경기</span>
+                            <span class="tag">SF 경기</span>
+                            <span class="tag">샌프란시스코 하이라이트</span>
+                            <span class="tag">이정후 홈런</span>
+                            <span class="tag">이정후 경기 하이라이트</span>
+                            <span class="tag">이정후 경기 보기</span>
+                            <span class="tag">샌프란시스코 경기 보기</span>
+                            <span class="tag">이정후 경기 활약</span>
+                            <span class="tag">이정후 MLB</span>
+                            <span class="tag">MLB 경기</span>
+                            <span class="tag">메이저리그 경기</span>
+                            <span class="tag">MLB 경기 하이라이트</span>
+                            <span class="tag">MLB 하이라이트</span>
+                            <span class="tag">메이저리그 경기 하이라이트</span>
+                            <span class="tag">이정후 메이저리그</span>
+                            <span class="tag">이정후 메이저리그 하이라이트</span>
+                            <span class="tag">샌프란시스코 경기 하이라이트</span>
+                            <span class="tag">이정후 경기 다시보기</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-2">2</div>
+                        <img src="https://img.youtube.com/vi/t84OPY05zQU/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">4:58</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Sports</div>
+                        <h3 class="video-title">"현지해설도 '감탄'… "이정후가 팀을 구해냅니다!" #SPOTIME</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>스포타임
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">1,771,658</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.4.9</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">이정후</span>
+                            <span class="tag">이정후 적시타</span>
+                            <span class="tag">이정후 안타</span>
+                            <span class="tag">이정후 호수비</span>
+                            <span class="tag">이정후 역전타</span>
+                            <span class="tag">이정후 수비</span>
+                            <span class="tag">이정후 활약</span>
+                            <span class="tag">이정후 이슈</span>
+                            <span class="tag">이정후 샌프란시스코</span>
+                            <span class="tag">이정후 경기</span>
+                            <span class="tag">이정후 경기 하이라이트</span>
+                            <span class="tag">이정후 경기 다시보기</span>
+                            <span class="tag">이정후 하이라이트</span>
+                            <span class="tag">이정후 경기 보기</span>
+                            <span class="tag">MLB 경기</span>
+                            <span class="tag">MLB 경기 하이라이트</span>
+                            <span class="tag">메이저리그</span>
+                            <span class="tag">메이저리그 경기 하이라이트</span>
+                            <span class="tag">MLB 경기 다시보기</span>
+                            <span class="tag">샌프란시스코 경기 보기</span>
+                            <span class="tag">샌프란시스코 경기 하이라이트</span>
+                            <span class="tag">샌프란시스코 하이라이트</span>
+                            <span class="tag">MLB 경기 보기</span>
+                            <span class="tag">메이저리그 경기 보기</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-3">3</div>
+                        <img src="https://img.youtube.com/vi/1yeINbunzeQ/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">3:51</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Sports</div>
+                        <h3 class="video-title">'오늘도 2루타' 이정후, MLB 공동 선두 질주! #SPOTIME</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>스포타임
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">1,713,595</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.4.26</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">이정후</span>
+                            <span class="tag">이정후 안타</span>
+                            <span class="tag">이정후 2루타</span>
+                            <span class="tag">이정후 활약</span>
+                            <span class="tag">이정후 해외 반응</span>
+                            <span class="tag">이정후 현지 해설</span>
+                            <span class="tag">이정후 해설</span>
+                            <span class="tag">이정후 미국 반응</span>
+                            <span class="tag">이정후 미국 해설</span>
+                            <span class="tag">이정후 해외 해설</span>
+                            <span class="tag">이정후 활약 해외 반응</span>
+                            <span class="tag">이정후 멀티 히트</span>
+                            <span class="tag">이정후 이슈</span>
+                            <span class="tag">이정후 경기</span>
+                            <span class="tag">이정후 경기 보기</span>
+                            <span class="tag">샌프란시스코 경기</span>
+                            <span class="tag">이정후 홈런</span>
+                            <span class="tag">이정후 하이라이트</span>
+                            <span class="tag">이정후 경기 하이라이트</span>
+                            <span class="tag">샌프란시스코 이정후</span>
+                            <span class="tag">이정후 경기 다시보기</span>
+                            <span class="tag">샌프란시스코 경기 보기</span>
+                            <span class="tag">샌프란시스코 경기 하이라이트</span>
+                            <span class="tag">MLB 경기</span>
+                            <span class="tag">MLB 경기 하이라이트</span>
+                            <span class="tag">메이저리그</span>
+                            <span class="tag">메이저리그 경기</span>
+                            <span class="tag">메이저리그 경기 하이라이트</span>
+                            <span class="tag">MLB 경기 보기</span>
+                            <span class="tag">메이저리그 경기 보기</span>
+                            <span class="tag">샌프란시스코 밀워키</span>
+                            <span class="tag">MLB</span>
+                            <span class="tag">활약상</span>
+                            <span class="tag">하이라이트</span>
+                            <span class="tag">타격의 정석</span>
+                            <span class="tag">이정후 스윙</span>
+                            <span class="tag">이정후 타격</span>
+                            <span class="tag">샌프란시스코</span>
+                            <span class="tag">샌프란시스코 자이언츠</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 4 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-4">4</div>
+                        <img src="https://img.youtube.com/vi/BMBrrVGCNqM/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">3:09</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Sports</div>
+                        <h3 class="video-title">"NL 타격왕으로 손색없다! 이정후, 3안타 맹활약! #SPOTIME</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>스포타임
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">1,619,331</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.4.13</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">SPOTV</span>
+                            <span class="tag">SPOTIME</span>
+                            <span class="tag">스포타임</span>
+                            <span class="tag">김하성</span>
+                            <span class="tag">손흥민</span>
+                            <span class="tag">황희찬</span>
+                            <span class="tag">프리미어리그</span>
+                            <span class="tag">PL</span>
+                            <span class="tag">세리에A</span>
+                            <span class="tag">MLB</span>
+                            <span class="tag">메이저리그</span>
+                            <span class="tag">오타니</span>
+                            <span class="tag">현지해설</span>
+                            <span class="tag">인터뷰</span>
+                            <span class="tag">활약상</span>
+                            <span class="tag">김민재</span>
+                            <span class="tag">이강인</span>
+                            <span class="tag">챔피언스리그</span>
+                            <span class="tag">UCL</span>
+                            <span class="tag">챔스</span>
+                            <span class="tag">유로파</span>
+                            <span class="tag">하이라이트</span>
+                            <span class="tag">NBA</span>
+                            <span class="tag">이정후</span>
+                            <span class="tag">이정후 안타</span>
+                            <span class="tag">이정후 2루타</span>
+                            <span class="tag">이정후 3루타</span>
+                            <span class="tag">이정후 주요장면</span>
+                            <span class="tag">이정후 활약상</span>
+                            <span class="tag">이정후 하이라이트</span>
+                            <span class="tag">샌프 하이라이트</span>
+                            <span class="tag">샌프 홈런</span>
+                            <span class="tag">샌프 끝내기 홈런</span>
+                            <span class="tag">스포타임 이정후</span>
+                            <span class="tag">이정후 타율</span>
+                            <span class="tag">이정후 타격</span>
+                            <span class="tag">이정후 신시내티전</span>
+                            <span class="tag">이정후 신시내티전 3안타</span>
+                            <span class="tag">이정후 홈런</span>
+                            <span class="tag">이정후 사이클링 히트</span>
+                            <span class="tag">샌프 이정후</span>
+                            <span class="tag">이정후 역전승</span>
+                            <span class="tag">야스트렘스키</span>
+                            <span class="tag">야스트렘스키 홈런</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 5 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-5">5</div>
+                        <img src="https://img.youtube.com/vi/DNsawGr9fZY/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">22:12</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Sports</div>
+                        <h3 class="video-title">[UFC] 알렉산더 볼카노프스키 vs 디에고 로페스</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>tvN SPORTS
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">1,511,692</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.4.17</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">KO</span>
+                            <span class="tag">UFC NO</span>
+                            <span class="tag">UFC UK</span>
+                            <span class="tag">UFC fight pass</span>
+                            <span class="tag">Ufc310</span>
+                            <span class="tag">Ultimate fighting championship</span>
+                            <span class="tag">ufc</span>
+                            <span class="tag">니키타 크릴로프</span>
+                            <span class="tag">대런 엘킨스</span>
+                            <span class="tag">댄 이게</span>
+                            <span class="tag">도미닉 레예스</span>
+                            <span class="tag">디에고 로페스</span>
+                            <span class="tag">마이클 챈들러</span>
+                            <span class="tag">브라이스 미첼</span>
+                            <span class="tag">비르나 잔디로바</span>
+                            <span class="tag">션 우드슨</span>
+                            <span class="tag">슈퍼보이</span>
+                            <span class="tag">알렉산더 볼카노프스키</span>
+                            <span class="tag">야이르 로드리게스</span>
+                            <span class="tag">옌 샤오난</span>
+                            <span class="tag">정찬성</span>
+                            <span class="tag">제앙 실바</span>
+                            <span class="tag">줄리안 에로사</span>
+                            <span class="tag">짐 밀러</span>
+                            <span class="tag">체이스 후퍼</span>
+                            <span class="tag">최두호</span>
+                            <span class="tag">코리안좀비</span>
+                            <span class="tag">패디 핌블렛</span>
+                            <span class="tag">패트리시오 핏불</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 6 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-6">6</div>
+                        <img src="https://img.youtube.com/vi/zU7LGJ5MGAo/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">23:52</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Sports</div>
+                        <h3 class="video-title">한국에 생긴 추성훈 스테이크 먹어본 추성훈 김동현 반응</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>매미킴
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">1,018,549</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.4.23</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">김동현</span>
+                            <span class="tag">매미킴 TV</span>
+                            <span class="tag">매미킴</span>
+                            <span class="tag">건강</span>
+                            <span class="tag">다이어트</span>
+                            <span class="tag">홈트</span>
+                            <span class="tag">홈트레이닝</span>
+                            <span class="tag">호신술</span>
+                            <span class="tag">파이터</span>
+                            <span class="tag">종합격투기</span>
+                            <span class="tag">이종격투기</span>
+                            <span class="tag">주짓수</span>
+                            <span class="tag">스턴건</span>
+                            <span class="tag">donghyunkim</span>
+                            <span class="tag">kimdonghyun</span>
+                            <span class="tag">donghyunkim ufc</span>
+                            <span class="tag">kimdonghyun ufc</span>
+                            <span class="tag">매미특공대</span>
+                            <span class="tag">MMA</span>
+                            <span class="tag">HAVAS</span>
+                            <span class="tag">하바스</span>
+                            <span class="tag">크로스핏</span>
+                            <span class="tag">피지컬100</span>
+                            <span class="tag">ufc</span>
+                            <span class="tag">레슬링</span>
+                            <span class="tag">정찬성</span>
+                            <span class="tag">추성훈</span>
+                            <span class="tag">헬스</span>
+                            <span class="tag">격투기</span>
+                            <span class="tag">넷플릭스</span>
+                            <span class="tag">NEtflix</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 YouTube Analytics. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light text-decoration-none me-3">개인정보처리방침</a>
+                    <a href="#" class="text-light text-decoration-none">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

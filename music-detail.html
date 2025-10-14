@@ -1,0 +1,737 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>4월 Music 트렌드 상세 - YouTube Analytics</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background-color: #ffffff;
+            color: #000000;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        .hero-section {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 120px 0 80px 0;
+            border-bottom: 3px solid #dc3545;
+        }
+        
+        .feature-icon {
+            color: #dc3545;
+            font-size: 4rem;
+        }
+        
+        .footer {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 40px 0;
+            border-top: 3px solid #dc3545;
+        }
+        
+        .navbar {
+            background-color: #ffffff !important;
+            border-bottom: 2px solid #dc3545;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .navbar-brand {
+            color: #dc3545 !important;
+            font-weight: bold;
+            font-size: 1.5rem;
+        }
+        
+        .nav-link {
+            color: #000000 !important;
+            font-weight: 500;
+            margin: 0 10px;
+        }
+        
+        .nav-link:hover {
+            color: #dc3545 !important;
+        }
+        
+        .back-btn {
+            background-color: #dc3545;
+            border: 2px solid #dc3545;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 0;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            display: inline-block;
+        }
+        
+        .back-btn:hover {
+            background-color: #ffffff;
+            color: #dc3545;
+            text-decoration: none;
+        }
+        
+        .video-card {
+            background-color: #ffffff;
+            border: 2px solid #dc3545;
+            border-radius: 0;
+            box-shadow: rgba(220, 53, 69, 0.2) 0px 10px 30px;
+            transition: all 0.3s ease;
+            margin-bottom: 30px;
+            overflow: hidden;
+        }
+        
+        .video-card:hover {
+            border-color: #000000;
+            box-shadow: rgba(0, 0, 0, 0.2) 0px 15px 40px;
+            transform: translateY(-5px);
+        }
+        
+        .video-thumbnail {
+            width: 100%;
+            height: 200px;
+            position: relative;
+            overflow: hidden;
+            background: linear-gradient(135deg, #dc3545, #000000);
+        }
+        
+        .thumbnail-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+        
+        .video-card:hover .thumbnail-image {
+            transform: scale(1.05);
+        }
+        
+        .play-overlay {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+            font-size: 3rem;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 50%;
+            width: 80px;
+            height: 80px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .video-card:hover .play-overlay {
+            background-color: rgba(220, 53, 69, 0.8);
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+        
+        .video-duration {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+        }
+        
+        .video-info {
+            padding: 20px;
+        }
+        
+        .video-title {
+            color: #000000;
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            line-height: 1.4;
+        }
+        
+        .video-channel {
+            color: #dc3545;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .video-stats {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+        
+        .stat-item i {
+            color: #dc3545;
+        }
+        
+        .video-tags {
+            margin-top: 15px;
+        }
+        
+        .tag {
+            background-color: #f8f9fa;
+            color: #000000;
+            padding: 4px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            margin: 2px;
+            display: inline-block;
+            border: 1px solid #dc3545;
+        }
+        
+        .trend-header {
+            background-color: #dc3545;
+            color: #ffffff;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .trend-header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: bold;
+        }
+        
+        .trend-header p {
+            margin: 10px 0 0 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .category-badge {
+            background-color: #dc3545;
+            color: #ffffff;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.9rem;
+            display: inline-block;
+            margin-bottom: 20px;
+        }
+        
+        .video-rank {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background-color: #ffd700;
+            color: #000000;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+        
+        .video-rank.rank-2 {
+            background-color: #c0c0c0;
+        }
+        
+        .video-rank.rank-3 {
+            background-color: #cd7f32;
+            color: #ffffff;
+        }
+        
+        .video-rank.rank-4 {
+            background-color: #dc3545;
+            color: #ffffff;
+        }
+        
+        .video-rank.rank-5 {
+            background-color: #6c757d;
+            color: #ffffff;
+        }
+        
+        .video-rank.rank-6 {
+            background-color: #000000;
+            color: #ffffff;
+        }
+        
+        .view-count {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #dc3545;
+        }
+        
+        .upload-date {
+            color: #6c757d;
+            font-size: 0.9rem;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-graph-up me-2"></i>YouTube Analytics
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon" style="filter: invert(1);"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="trend.html">월별 트렌드</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="feedback.html">피드백</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <a href="trend.html" class="back-btn mb-4 d-inline-block">
+                        <i class="bi bi-arrow-left me-2"></i>뒤로 가기
+                    </a>
+                    <h1 class="display-4 fw-bold mb-4">4월 Music 트렌드 상세 분석</h1>
+                    <p class="lead mb-4">Music 카테고리의 인기 영상들을 확인해보세요.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="bi bi-music-note feature-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container" style="padding-bottom: 50px;">
+        <!-- Trend Header -->
+        <div class="trend-header">
+            <h1>🎵 Music 카테고리</h1>
+            <p>4월 가장 인기 있었던 Music 영상들</p>
+        </div>
+
+        <!-- Video Cards -->
+        <div class="row">
+            <!-- Video 1 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-1">1</div>
+                        <img src="https://img.youtube.com/vi/Csaj3X6PKxY/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">3:36</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Music</div>
+                        <h3 class="video-title">TWS (투어스) '마음 따라 뛰는 건 멋지지 않아?' Official MV</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>HYBE LABELS
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">18,688,606</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.4.25</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">HYBE</span>
+                            <span class="tag">HYBE LABELS</span>
+                            <span class="tag">하이브</span>
+                            <span class="tag">하이브레이블즈</span>
+                            <span class="tag">TWS</span>
+                            <span class="tag">투어스</span>
+                            <span class="tag">마음 따라 뛰는 건 멋지지 않아</span>
+                            <span class="tag">Official MV</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 2 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-2">2</div>
+                        <img src="https://img.youtube.com/vi/3kfhoikVzUc/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">2:59</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Music</div>
+                        <h3 class="video-title">[MV] 하이라이트(HIGHLIGHT) - Chains</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>OFFICIAL HIGHLIGHT
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">1,767,254</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.5.1</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">HIGHLIGHT</span>
+                            <span class="tag">하이라이트</span>
+                            <span class="tag">Chains</span>
+                            <span class="tag">MV</span>
+                            <span class="tag">Music Video</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 3 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-3">3</div>
+                        <img src="https://img.youtube.com/vi/sL0pCS6K9bc/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">3:25</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Music</div>
+                        <h3 class="video-title">MEOVV - 'HANDS UP' M/V</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>THEBLACKLABEL
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">11,700,017</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.5.2</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">KPOP</span>
+                            <span class="tag">K-POP</span>
+                            <span class="tag">Jeon Somi</span>
+                            <span class="tag">전소미</span>
+                            <span class="tag">blackpink</span>
+                            <span class="tag">yg entertainment</span>
+                            <span class="tag">music video</span>
+                            <span class="tag">YG</span>
+                            <span class="tag">music</span>
+                            <span class="tag">single</span>
+                            <span class="tag">theblacklabel</span>
+                            <span class="tag">sm entertainment</span>
+                            <span class="tag">jyp entertainment</span>
+                            <span class="tag">bts</span>
+                            <span class="tag">dance</span>
+                            <span class="tag">THEBLACKLABEL</span>
+                            <span class="tag">MEOW</span>
+                            <span class="tag">cat</span>
+                            <span class="tag">meow</span>
+                            <span class="tag">테디걸그룹</span>
+                            <span class="tag">걸그룹</span>
+                            <span class="tag">테디</span>
+                            <span class="tag">teddygirlgroup</span>
+                            <span class="tag">yggirlgroup</span>
+                            <span class="tag">미야오</span>
+                            <span class="tag">MEOVV</span>
+                            <span class="tag">BLACKPINK</span>
+                            <span class="tag">블랙핑크</span>
+                            <span class="tag">4세대 아이돌</span>
+                            <span class="tag">5세대 아이돌</span>
+                            <span class="tag">뉴진스</span>
+                            <span class="tag">newjeans</span>
+                            <span class="tag">IVE</span>
+                            <span class="tag">아이브</span>
+                            <span class="tag">르세라핌</span>
+                            <span class="tag">LE SSERAFIM</span>
+                            <span class="tag">에스파</span>
+                            <span class="tag">aespa</span>
+                            <span class="tag">ELLA</span>
+                            <span class="tag">엘라</span>
+                            <span class="tag">엘라그로스</span>
+                            <span class="tag">가원</span>
+                            <span class="tag">GAWON</span>
+                            <span class="tag">수인</span>
+                            <span class="tag">SOOIN</span>
+                            <span class="tag">데뷔</span>
+                            <span class="tag">미야오데뷔</span>
+                            <span class="tag">안나</span>
+                            <span class="tag">ANNA</span>
+                            <span class="tag">데뷔쇼</span>
+                            <span class="tag">TOXIC</span>
+                            <span class="tag">BODY</span>
+                            <span class="tag">태양</span>
+                            <span class="tag">taeyang</span>
+                            <span class="tag">지드래곤</span>
+                            <span class="tag">권지용</span>
+                            <span class="tag">rose</span>
+                            <span class="tag">로제</span>
+                            <span class="tag">제니</span>
+                            <span class="tag">리사</span>
+                            <span class="tag">jennie</span>
+                            <span class="tag">lisa</span>
+                            <span class="tag">자컨</span>
+                            <span class="tag">미야오 자컨</span>
+                            <span class="tag">kiki</span>
+                            <span class="tag">키키</span>
+                            <span class="tag">하츠투하츠</span>
+                            <span class="tag">hearts2hearts</span>
+                            <span class="tag">aldidh</span>
+                            <span class="tag">HANDSUP</span>
+                            <span class="tag">나린</span>
+                            <span class="tag">NARIN</span>
+                            <span class="tag">핸즈업</span>
+                            <span class="tag">goswmdjq</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 4 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-4">4</div>
+                        <img src="https://img.youtube.com/vi/1ZX1vEDTfY4/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">2:41</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Music</div>
+                        <h3 class="video-title">FIFTY FIFTY (피프티피프티) 'Pookie' Official MV</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>FIFTY FIFTY Official
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">7,564,064</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.5.3</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">어트랙트</span>
+                            <span class="tag">ATTRAKT</span>
+                            <span class="tag">FIFTY FIFTY</span>
+                            <span class="tag">Cupid</span>
+                            <span class="tag">큐피드</span>
+                            <span class="tag">#피프티피프티</span>
+                            <span class="tag">#KEENA</span>
+                            <span class="tag">#키나</span>
+                            <span class="tag">#CHANELLEMOON</span>
+                            <span class="tag">#문샤넬</span>
+                            <span class="tag">#YEWON</span>
+                            <span class="tag">#예원</span>
+                            <span class="tag">#ATHENA</span>
+                            <span class="tag">#HANA</span>
+                            <span class="tag">#하나</span>
+                            <span class="tag">Pookie</span>
+                            <span class="tag">Official MV</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 5 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-5">5</div>
+                        <img src="https://img.youtube.com/vi/Ao2GsXHMD_4/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">2:46</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Music</div>
+                        <h3 class="video-title">JENNIE - Seoul City (Official Video)</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>JennieRubyJaneVEVO
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">4,554,951</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.4.29</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">Jennie Kim</span>
+                            <span class="tag">JENNIE MV</span>
+                            <span class="tag">JENNIE Solo</span>
+                            <span class="tag">ZEN</span>
+                            <span class="tag">Ruby</span>
+                            <span class="tag">JENNIE Ruby</span>
+                            <span class="tag">Mantra</span>
+                            <span class="tag">JENNIE Album</span>
+                            <span class="tag">JENNIE New Music</span>
+                            <span class="tag">JENNIE New Song</span>
+                            <span class="tag">This That Pretty Girl Mantra</span>
+                            <span class="tag">JENNIE Mantra</span>
+                            <span class="tag">JENNIE from BLACKPINK</span>
+                            <span class="tag">BLACKPINK</span>
+                            <span class="tag">BLACKPINK JENNIE</span>
+                            <span class="tag">Dance</span>
+                            <span class="tag">Fashion</span>
+                            <span class="tag">KPop</span>
+                            <span class="tag">BLINKs</span>
+                            <span class="tag">OddAtelier</span>
+                            <span class="tag">Odd Atelier</span>
+                            <span class="tag">Love Hangover</span>
+                            <span class="tag">ExtraL</span>
+                            <span class="tag">like JENNIE</span>
+                            <span class="tag">Who wanna rock with JENNIE</span>
+                            <span class="tag">JENNIE Video</span>
+                            <span class="tag">JENNIE new album</span>
+                            <span class="tag">Ruby Album</span>
+                            <span class="tag">JENNIE Seoul</span>
+                            <span class="tag">JENNIE</span>
+                            <span class="tag">K-Pop</span>
+                            <span class="tag">Seoul City</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Video 6 -->
+            <div class="col-lg-6 mb-4">
+                <div class="video-card">
+                    <div class="video-thumbnail">
+                        <div class="video-rank rank-6">6</div>
+                        <img src="https://img.youtube.com/vi/PHToFdx20ac/maxresdefault.jpg" alt="영상 썸네일" class="thumbnail-image">
+                        <div class="play-overlay">
+                            <i class="bi bi-play-circle-fill"></i>
+                        </div>
+                        <div class="video-duration">3:56</div>
+                    </div>
+                    <div class="video-info">
+                        <div class="category-badge">Music</div>
+                        <h3 class="video-title">대성(DAESUNG) 'Universe' Official MV</h3>
+                        <div class="video-channel">
+                            <i class="bi bi-person-circle me-2"></i>DAESUNG
+                        </div>
+                        <div class="video-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye"></i>
+                                <span class="view-count">3,747,143</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-calendar"></i>
+                                <span class="upload-date">2025.4.12</span>
+                            </div>
+                        </div>
+                        <div class="video-tags">
+                            <span class="tag">대성</span>
+                            <span class="tag">DAESUNG</span>
+                            <span class="tag">DLITE</span>
+                            <span class="tag">D-Lite</span>
+                            <span class="tag">응원봉</span>
+                            <span class="tag">official</span>
+                            <span class="tag">디레이블</span>
+                            <span class="tag">d-lable</span>
+                            <span class="tag">와이지</span>
+                            <span class="tag">빅뱅</span>
+                            <span class="tag">BIGBANG</span>
+                            <span class="tag">テソン</span>
+                            <span class="tag">デソン</span>
+                            <span class="tag">댓봉</span>
+                            <span class="tag">デッポン</span>
+                            <span class="tag">Daetbong</span>
+                            <span class="tag">강대성</span>
+                            <span class="tag">YG</span>
+                            <span class="tag">알앤디</span>
+                            <span class="tag">알앤디컴퍼니</span>
+                            <span class="tag">RNDCompany</span>
+                            <span class="tag">K-pop</span>
+                            <span class="tag">케이팝</span>
+                            <span class="tag">J-pop</span>
+                            <span class="tag">일본</span>
+                            <span class="tag">KPOP</span>
+                            <span class="tag">yg entertainment</span>
+                            <span class="tag">entertainment</span>
+                            <span class="tag">EP</span>
+                            <span class="tag">집대성</span>
+                            <span class="tag">zip daesung</span>
+                            <span class="tag">dae sung</span>
+                            <span class="tag">Universe</span>
+                            <span class="tag">Teaser</span>
+                            <span class="tag">티저</span>
+                            <span class="tag">유니버스</span>
+                            <span class="tag">타이틀</span>
+                            <span class="tag">뮤직비디오</span>
+                            <span class="tag">MV</span>
+                            <span class="tag">Music Video</span>
+                            <span class="tag">오피셜</span>
+                            <span class="tag">지드래곤</span>
+                            <span class="tag">태양</span>
+                            <span class="tag">디라이트</span>
+                            <span class="tag">미니앨범</span>
+                            <span class="tag">디스웨이브</span>
+                            <span class="tag">D's WAVE</span>
+                            <span class="tag">music video</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 YouTube Analytics. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light text-decoration-none me-3">개인정보처리방침</a>
+                    <a href="#" class="text-light text-decoration-none">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

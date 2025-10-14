@@ -1,0 +1,433 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>영상 피드백 - YouTube Analytics</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background-color: #ffffff;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #000000;
+        }
+        
+        .hero-section {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 100px 0;
+            border-bottom: 3px solid #dc3545;
+        }
+        
+        .navbar {
+            background-color: #ffffff !important;
+            border-bottom: 2px solid #dc3545;
+        }
+        
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #dc3545 !important;
+        }
+        
+        .nav-link {
+            color: #000000 !important;
+            font-weight: 500;
+        }
+        
+        .nav-link:hover {
+            color: #dc3545 !important;
+        }
+        
+        .feedback-card {
+            background-color: #ffffff;
+            border: 2px solid #dc3545;
+            border-radius: 0;
+            padding: 40px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(220, 53, 69, 0.2);
+        }
+        
+        .form-control {
+            border: 2px solid #dc3545;
+            border-radius: 0;
+            padding: 12px 15px;
+            font-size: 1rem;
+        }
+        
+        .form-control:focus {
+            border-color: #000000;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+        
+        .form-label {
+            color: #000000;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+        
+        .btn-custom {
+            background-color: #dc3545;
+            border: 2px solid #dc3545;
+            color: #ffffff;
+            padding: 15px 40px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .btn-custom:hover {
+            background-color: #000000;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+        
+        .btn-secondary {
+            background-color: #000000;
+            border: 2px solid #000000;
+            color: #ffffff;
+            padding: 15px 40px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #dc3545;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        
+        .back-btn {
+            background-color: #dc3545;
+            border: 2px solid #dc3545;
+            color: #ffffff;
+            padding: 10px 20px;
+            border-radius: 0;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+        
+        .back-btn:hover {
+            background-color: #000000;
+            color: #ffffff;
+            transform: translateY(-2px);
+        }
+        
+        .feature-icon {
+            font-size: 3rem;
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 40px;
+        }
+        
+        .step {
+            display: flex;
+            align-items: center;
+            margin: 0 20px;
+        }
+        
+        .step-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background-color: #dc3545;
+            color: #ffffff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            margin-right: 10px;
+        }
+        
+        .step-number.active {
+            background-color: #000000;
+        }
+        
+        .step-number.completed {
+            background-color: #dc3545;
+        }
+        
+        .step-text {
+            color: #000000;
+            font-weight: 500;
+        }
+        
+        .step-line {
+            width: 50px;
+            height: 2px;
+            background-color: #dc3545;
+            margin: 0 10px;
+        }
+        
+        .footer {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 50px 0 20px;
+            border-top: 3px solid #dc3545;
+        }
+        
+        .form-select {
+            border: 2px solid #dc3545;
+            border-radius: 0;
+            padding: 12px 15px;
+        }
+        
+        .form-select:focus {
+            border-color: #000000;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+        
+        .text-muted {
+            color: #6c757d !important;
+        }
+        
+        .display-4 {
+            color: #000000;
+        }
+        
+        .lead {
+            color: #6c757d;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="index.html">
+                <i class="bi bi-graph-up me-2"></i>
+                YouTube Analytics
+            </a>
+            
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item">
+                        <a class="nav-link" href="index.html">홈</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="trend.html">월별 트렌드</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link active" href="feedback.html">피드백</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#analytics">분석</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero-section" style="margin-top: 76px;">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-8">
+                    <a href="index.html" class="back-btn mb-4 d-inline-block">
+                        <i class="bi bi-arrow-left me-2"></i>뒤로 가기
+                    </a>
+                    <h1 class="display-4 fw-bold mb-4">영상 피드백</h1>
+                    <p class="lead mb-4">영상 정보를 입력하면 AI가 조회수 예측과 개선 방향을 제안해드립니다.</p>
+                </div>
+                <div class="col-lg-4 text-center">
+                    <i class="bi bi-chat-heart feature-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <div class="container" style="padding-bottom: 50px;">
+        <!-- Step Indicator -->
+        <div class="step-indicator">
+            <div class="step">
+                <div class="step-number active">1</div>
+                <div class="step-text">영상 정보 입력</div>
+            </div>
+            <div class="step-line"></div>
+            <div class="step">
+                <div class="step-number">2</div>
+                <div class="step-text">피드백 결과</div>
+            </div>
+        </div>
+
+        <!-- Feedback Form -->
+        <div class="feedback-card">
+            <div class="row">
+                <div class="col-lg-8 mx-auto">
+                    <h3 class="mb-4 text-center">영상 정보를 입력해주세요</h3>
+                    
+                    <form id="feedbackForm">
+                        <div class="row g-4">
+                            <!-- 영상 제목 -->
+                            <div class="col-12">
+                                <label for="videoTitle" class="form-label">
+                                    <i class="bi bi-film me-2"></i>영상 제목
+                                </label>
+                                <input type="text" class="form-control" id="videoTitle" placeholder="영상 제목을 입력해주세요" required>
+                            </div>
+                            
+                            <!-- 영상 주제/카테고리 -->
+                            <div class="col-md-6">
+                                <label for="videoCategory" class="form-label">
+                                    <i class="bi bi-tags me-2"></i>영상 주제/카테고리
+                                </label>
+                                <select class="form-select" id="videoCategory" required>
+                                    <option value="">카테고리를 선택해주세요</option>
+                                    <option value="1">Film & Animation</option>
+                                    <option value="2">Autos & Vehicles</option>
+                                    <option value="10">Music</option>
+                                    <option value="15">Pets & Animals</option>
+                                    <option value="17">Sports</option>
+                                    <option value="18">Short Movies</option>
+                                    <option value="19">Travel & Events</option>
+                                    <option value="20">Gaming</option>
+                                    <option value="21">Videoblogging</option>
+                                    <option value="22">People & Blogs</option>
+                                    <option value="23">Comedy</option>
+                                    <option value="24">Entertainment</option>
+                                    <option value="25">News & Politics</option>
+                                    <option value="26">Howto & Style</option>
+                                </select>
+                            </div>
+                            
+                            <!-- 영상 길이 -->
+                            <div class="col-md-6">
+                                <label for="videoLength" class="form-label">
+                                    <i class="bi bi-clock me-2"></i>영상 길이 (분)
+                                </label>
+                                <input type="number" class="form-control" id="videoLength" placeholder="예: 10" min="1" max="1440" required>
+                                <div class="form-text text-muted">1분부터 24시간(1440분)까지 입력 가능</div>
+                            </div>
+                            
+                            <!-- 업로드 예정 시간 -->
+                            <div class="col-md-6">
+                                <label for="uploadTime" class="form-label">
+                                    <i class="bi bi-calendar-event me-2"></i>업로드 예정 시간
+                                </label>
+                                <input type="datetime-local" class="form-control" id="uploadTime" required>
+                            </div>
+                            
+                            <!-- 타겟 시청자 -->
+                            <div class="col-md-6">
+                                <label for="targetAudience" class="form-label">
+                                    <i class="bi bi-people me-2"></i>타겟 시청자
+                                </label>
+                                <select class="form-select" id="targetAudience" required>
+                                    <option value="">타겟 시청자를 선택해주세요</option>
+                                    <option value="all">전체 연령대</option>
+                                    <option value="kids">어린이 (13세 미만)</option>
+                                    <option value="teens">청소년 (13-17세)</option>
+                                    <option value="young_adults">청년 (18-24세)</option>
+                                    <option value="adults">성인 (25-44세)</option>
+                                    <option value="middle_aged">중년 (45-64세)</option>
+                                    <option value="seniors">시니어 (65세 이상)</option>
+                                </select>
+                            </div>
+                            
+                            <!-- 영상 설명 -->
+                            <div class="col-12">
+                                <label for="videoDescription" class="form-label">
+                                    <i class="bi bi-card-text me-2"></i>영상 설명 (선택사항)
+                                </label>
+                                <textarea class="form-control" id="videoDescription" rows="4" placeholder="영상의 주요 내용이나 특징을 간단히 설명해주세요"></textarea>
+                            </div>
+                            
+                            <!-- 제출 버튼 -->
+                            <div class="col-12 text-center mt-4">
+                                <button type="submit" class="btn btn-custom btn-lg me-3">
+                                    <i class="bi bi-arrow-right me-2"></i>다음으로
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-lg" onclick="resetForm()">
+                                    <i class="bi bi-arrow-clockwise me-2"></i>초기화
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-md-6">
+                    <p class="mb-0">&copy; 2024 YouTube Analytics. All rights reserved.</p>
+                </div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light text-decoration-none me-3">개인정보처리방침</a>
+                    <a href="#" class="text-light text-decoration-none">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Custom JavaScript -->
+    <script>
+        // Form submission
+        document.getElementById('feedbackForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Get form data
+            const formData = {
+                title: document.getElementById('videoTitle').value,
+                category: document.getElementById('videoCategory').value,
+                length: document.getElementById('videoLength').value,
+                uploadTime: document.getElementById('uploadTime').value,
+                targetAudience: document.getElementById('targetAudience').value,
+                description: document.getElementById('videoDescription').value
+            };
+            
+            // Validate form
+            if (!formData.title || !formData.category || !formData.length || !formData.uploadTime || !formData.targetAudience) {
+                alert('필수 항목을 모두 입력해주세요.');
+                return;
+            }
+            
+            // Store data in localStorage
+            localStorage.setItem('videoData', JSON.stringify(formData));
+            
+            // Redirect to feedback result page
+            window.location.href = 'feedback-result.html';
+        });
+        
+        // Reset form
+        function resetForm() {
+            document.getElementById('feedbackForm').reset();
+        }
+        
+        // Set default upload time to current time + 1 hour
+        document.addEventListener('DOMContentLoaded', function() {
+            const now = new Date();
+            now.setHours(now.getHours() + 1);
+            const defaultTime = now.toISOString().slice(0, 16);
+            document.getElementById('uploadTime').value = defaultTime;
+        });
+    </script>
+</body>
+</html>

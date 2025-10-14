@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bootstrap 5 웹페이지</title>
+    
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Bootstrap Icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css">
+    
+    <style>
+        body {
+            background-color: #ffffff;
+            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: #000000;
+        }
+        .hero-section {
+            background-color: #ffffff;
+            color: #000000;
+            padding: 100px 0;
+            border-bottom: 3px solid #dc3545;
+        }
+        .card-hover {
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(220, 53, 69, 0.3);
+        }
+        .feature-icon {
+            font-size: 3rem;
+            color: #dc3545;
+            margin-bottom: 1rem;
+        }
+        .footer {
+            background-color: #000000;
+            color: #ffffff;
+            padding: 50px 0 20px;
+            border-top: 3px solid #dc3545;
+        }
+        .navbar {
+            background-color: #ffffff !important;
+            border-bottom: 2px solid #dc3545;
+        }
+        .navbar-brand {
+            font-weight: bold;
+            font-size: 1.5rem;
+            color: #dc3545 !important;
+        }
+        .nav-link {
+            color: #000000 !important;
+            font-weight: 500;
+        }
+        .nav-link:hover {
+            color: #dc3545 !important;
+        }
+        .btn-custom {
+            background-color: #dc3545;
+            border: 2px solid #dc3545;
+            color: #ffffff;
+            padding: 12px 30px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+        .btn-custom:hover {
+            background-color: #000000;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.3);
+        }
+        .btn-outline-light {
+            background-color: transparent;
+            border: 2px solid #000000;
+            color: #000000;
+            padding: 12px 30px;
+            border-radius: 0;
+            transition: all 0.3s ease;
+        }
+        .btn-outline-light:hover {
+            background-color: #000000;
+            color: #ffffff;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        }
+        .card {
+            background-color: #ffffff;
+            border: 2px solid #dc3545;
+            border-radius: 0;
+            box-shadow: 0 5px 15px rgba(220, 53, 69, 0.2);
+        }
+        .card:hover {
+            border-color: #000000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        }
+        .card-title { color: #000000; }
+        .card-text { color: #6c757d; }
+        .bg-light {
+            background-color: #f8f9fa !important;
+            border-top: 2px solid #dc3545;
+            border-bottom: 2px solid #dc3545;
+        }
+        .text-primary,
+        .text-success,
+        .text-warning,
+        .text-info { color: #dc3545 !important; }
+        .form-control {
+            border: 2px solid #dc3545;
+            border-radius: 0;
+        }
+        .form-control:focus {
+            border-color: #000000;
+            box-shadow: 0 0 0 0.2rem rgba(220, 53, 69, 0.25);
+        }
+        .form-label {
+            color: #000000;
+            font-weight: 500;
+        }
+        .text-light { color: #ffffff !important; }
+        .text-decoration-none { color: #ffffff; }
+        .text-decoration-none:hover { color: #dc3545; }
+        .list-unstyled li a {
+            color: #ffffff;
+            transition: color 0.3s ease;
+        }
+        .list-unstyled li a:hover { color: #dc3545; }
+        .d-flex.gap-3 a {
+            color: #ffffff;
+            font-size: 1.5rem;
+            transition: color 0.3s ease;
+        }
+        .d-flex.gap-3 a:hover { color: #dc3545; }
+        .display-4, .display-5, .fw-bold { color: #000000; }
+        .lead, .text-muted { color: #6c757d; }
+        .mb-0 { color: #ffffff; }
+        .bg-white {
+            background-color: #ffffff !important;
+            border: 2px solid #dc3545;
+        }
+        .rounded { border-radius: 0 !important; }
+        .shadow-sm {
+            box-shadow: 0 0.125rem 0.25rem rgba(220, 53, 69, 0.2) !important;
+        }
+    </style>
+</head>
+<body>
+    <!-- Navigation -->
+    <nav class="navbar navbar-expand-lg fixed-top">
+        <div class="container">
+            <a class="navbar-brand" href="#">
+                <i class="bi bi-graph-up me-2"></i>
+                YouTube Analytics
+            </a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto">
+                    <li class="nav-item"><a class="nav-link" href="#home">홈</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#features">기능</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#about">소개</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contact">연락처</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h1 class="display-4 fw-bold mb-4">환영합니다!</h1>
+                    <p class="lead mb-4">유튜브 데이터를 분석하고 피드백 해주는 서비스입니다.</p>
+                    <div class="d-flex gap-3">
+                        <button class="btn btn-custom btn-lg">
+                            <i class="bi bi-play-circle me-2"></i>시작하기
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-5">
+        <div class="container text-center">
+            <h2 class="display-5 fw-bold mb-3">주요 기능</h2>
+            <p class="lead text-muted mb-5">우리 서비스의 핵심 기능들을 확인해보세요</p>
+            <div class="row g-4">
+                <div class="col-md-6">
+                    <a href="trend.html" class="text-decoration-none">
+                        <div class="card h-100 card-hover border-0 shadow-sm">
+                            <div class="card-body text-center p-4">
+                                <i class="bi bi-graph-up-arrow feature-icon"></i>
+                                <h5 class="card-title">월별 트렌드</h5>
+                                <p class="card-text text-muted">월별 데이터 트렌드를 분석하여 인사이트를 제공합니다.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="feedback.html" class="text-decoration-none">
+                        <div class="card h-100 card-hover border-0 shadow-sm">
+                            <div class="card-body text-center p-4">
+                                <i class="bi bi-chat-heart feature-icon"></i>
+                                <h5 class="card-title">피드백</h5>
+                                <p class="card-text text-muted">사용자 피드백을 수집하고 분석하여 개선점을 찾습니다.</p>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="py-5 bg-light">
+        <div class="container">
+            <div class="row align-items-center">
+                <div class="col-lg-6">
+                    <h2 class="display-5 fw-bold mb-4">우리에 대해</h2>
+                    <p class="lead mb-4">
+                        우리는 영상 업로드 전·후 조회수를 예측하고, 사용자 맞춤형 피드백으로 성장 방향을 제안합니다. 
+                        영상의 기본 정보뿐만 아니라 업로드 조건까지 반영하여 조회수에 영향을 주는 요인을 분석합니다.
+                    </p>
+                    <div class="row g-3">
+                        <div class="col-6"><i class="bi bi-check-circle-fill text-success me-2"></i>전문적인 팀</div>
+                        <div class="col-6"><i class="bi bi-check-circle-fill text-success me-2"></i>최신 기술</div>
+                        <div class="col-6"><i class="bi bi-check-circle-fill text-success me-2"></i>24/7 지원</div>
+                        <div class="col-6"><i class="bi bi-check-circle-fill text-success me-2"></i>합리적 가격</div>
+                    </div>
+                </div>
+                <div class="col-lg-6 text-center">
+                    <div class="row g-3">
+                        <div class="col-6"><div class="bg-white p-4 rounded shadow-sm"><h3 class="text-primary fw-bold">500+</h3><p class="text-muted mb-0">완료된 프로젝트</p></div></div>
+                        <div class="col-6"><div class="bg-white p-4 rounded shadow-sm"><h3 class="text-success fw-bold">98%</h3><p class="text-muted mb-0">고객 만족도</p></div></div>
+                        <div class="col-6"><div class="bg-white p-4 rounded shadow-sm"><h3 class="text-warning fw-bold">5년</h3><p class="text-muted mb-0">업계 경험</p></div></div>
+                        <div class="col-6"><div class="bg-white p-4 rounded shadow-sm"><h3 class="text-info fw-bold">24/7</h3><p class="text-muted mb-0">고객 지원</p></div></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-4 mb-4">
+                    <h5 class="mb-3"><i class="bi bi-rocket-takeoff me-2"></i>MyWebsite</h5>
+                    <p class="text-light">혁신적인 웹 솔루션으로 비즈니스를 성장시키세요.</p>
+                    <div class="d-flex gap-3">
+                        <a href="#" class="text-light"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-twitter"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="text-light"><i class="bi bi-linkedin"></i></a>
+                    </div>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="mb-3">서비스</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">웹 개발</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">모바일 앱</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">UI/UX 디자인</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">SEO 최적화</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-2 col-md-6 mb-4">
+                    <h6 class="mb-3">회사</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-light text-decoration-none">회사 소개</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">팀</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">채용</a></li>
+                        <li><a href="#" class="text-light text-decoration-none">뉴스</a></li>
+                    </ul>
+                </div>
+                <div class="col-lg-4 mb-4">
+                    <h6 class="mb-3">연락처 정보</h6>
+                    <div class="d-flex align-items-center mb-2"><i class="bi bi-geo-alt me-2"></i><span>서울특별시 강남구 테헤란로 123</span></div>
+                    <div class="d-flex align-items-center mb-2"><i class="bi bi-telephone me-2"></i><span>02-1234-5678</span></div>
+                    <div class="d-flex align-items-center"><i class="bi bi-envelope me-2"></i><span>info@mywebsite.com</span></div>
+                </div>
+            </div>
+            <hr class="my-4">
+            <div class="row align-items-center">
+                <div class="col-md-6"><p class="mb-0">&copy; 2024 MyWebsite. All rights reserved.</p></div>
+                <div class="col-md-6 text-md-end">
+                    <a href="#" class="text-light text-decoration-none me-3">개인정보처리방침</a>
+                    <a href="#" class="text-light text-decoration-none">이용약관</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
