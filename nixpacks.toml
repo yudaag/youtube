@@ -5,5 +5,5 @@ nixPkgs = ["python312"]
 cmds = ["pip install --upgrade pip setuptools wheel", "pip install -r requirements.txt"]
 
 [start]
-cmd = "cd tags && (python ../init_database.py || true) && python fastapi_server.py"
+cmd = "uvicorn fastapi_server:app --host 0.0.0.0 --port $PORT"
 

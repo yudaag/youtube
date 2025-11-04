@@ -1,2 +1,2 @@
-web: cd tags && (python ../init_database.py || true) && python fastapi_server.py
+web: uvicorn fastapi_server:app --host 0.0.0.0 --port $PORT
 
