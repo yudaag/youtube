@@ -1,0 +1,9 @@
+[phases.setup]
+nixPkgs = ["python312"]
+
+[phases.install]
+cmds = ["pip install --upgrade pip setuptools wheel", "pip install -r requirements.txt"]
+
+[start]
+cmd = "cd tags && (python ../init_database.py || true) && python fastapi_server.py"
+
